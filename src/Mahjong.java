@@ -34,13 +34,19 @@ public class Mahjong {
 
 	public static void play() {
 		tiles.shuffle();
+		for (Player p : player) {
+			p.initialize();
+		}
 		for (int i = 0; i % 4 < 4; i++) {
-			//does stuff
+			showDiscard();
+			player[i].sort();
+			player[i].turn();
+			print("Click \"OK\" to move on to the next player.", null);
 		}
 	}
 	
 	public static void showDiscard() {
-		System.out.println(discard.get(0));
+		if (discard.size() > 0) System.out.println(discard.get(0).name());
 	}
 	
 	public static void print(String message, String title) {
