@@ -38,15 +38,14 @@ public class Mahjong {
 			p.initialize();
 		}
 		for (int i = 0; i % 4 < 4; i++) {
-			showDiscard();
-			player[i].sort();
-			player[i].turn();
+			player[i % 4].turn();
+			if (i % 16 == 0) System.out.println();
 			print("Click \"OK\" to move on to the next player.", null);
 		}
 	}
 	
 	public static void showDiscard() {
-		if (discard.size() > 0) System.out.println(discard.get(0).name());
+		if (discard.size() > 0) System.out.print(discard.get(0).name() + "\t");
 	}
 	
 	public static void print(String message, String title) {

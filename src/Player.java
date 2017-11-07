@@ -29,6 +29,7 @@ public class Player {
 	
 	public void turn() {
 		this.draw();
+		this.sort();
 		Tile[] tiles = new Tile[hand.size()];
 		for (int i = 0; i < tiles.length; i++) {
 			tiles[i] = hand.get(i);
@@ -36,10 +37,14 @@ public class Player {
 		Object tile = JOptionPane.showInputDialog(null, 
 				"Select a tile to discard.", this.name(), 
 				JOptionPane.PLAIN_MESSAGE, null,
-				tiles, tiles[tiles.length - 1]);
-		if (tile.equals(null)) turn();
+				tiles, tiles[0]);
 		Tile discard = (Tile) tile;
 		Mahjong.discard.add(0, discard);
+		try {
+			Mahjong.showDiscard();
+		} catch (NullPointerException e) {
+			this.turn();
+		}
 	}
 	
 	public void sort() {
