@@ -38,8 +38,14 @@ public class Mahjong {
 			p.initialize();
 		}
 		for (int i = 0; i % 4 < 4; i++) {
+			if (tiles.tiles.size() == 0) {
+				print("No win", "Game over");
+				break;
+			}
+			if (i % 16 == 0 && i != 0) {
+				System.out.println();
+			}
 			player[i % 4].turn();
-			if (i % 16 == 0) System.out.println();
 			print("Click \"OK\" to move on to the next player.", null);
 		}
 	}
@@ -51,6 +57,4 @@ public class Mahjong {
 	public static void print(String message, String title) {
 		JOptionPane.showOptionDialog(null, message, title, JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
 	}
-	
-	
 }

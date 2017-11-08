@@ -39,6 +39,7 @@ public class Player {
 				JOptionPane.PLAIN_MESSAGE, null,
 				tiles, tiles[0]);
 		Tile discard = (Tile) tile;
+		this.hand.remove(discard);
 		Mahjong.discard.add(0, discard);
 		try {
 			Mahjong.showDiscard();
