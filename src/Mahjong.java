@@ -34,20 +34,19 @@ public class Mahjong {
 
 	public static void play() {
 		tiles.shuffle();
-		for (Player p : player) {
-			p.initialize();
-		}
+		for (Player p : player) p.initialize();
 		for (int i = 0; i % 4 < 4; i++) {
 			if (tiles.tiles.size() == 0) {
 				print("No win", "Game over");
 				break;
 			}
-			if (i % 16 == 0 && i != 0) {
-				System.out.println();
-			}
+			if (i % 16 == 0 && i != 0) System.out.println();
 			player[i % 4].turn();
 			print("Click \"OK\" to move on to the next player.", null);
 		}
+		int decision = JOptionPane.showConfirmDialog(null, "Would you like to play again?");
+		if (decision == JOptionPane.YES_OPTION) play();
+		else System.exit(0);
 	}
 	
 	public static void showDiscard() {
