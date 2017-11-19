@@ -1,12 +1,13 @@
+package tile;
 import java.util.*;
 public class Tiles {
 	
-	public ArrayList<Tile> tiles;
+	public ArrayList<Tile> tilePile;
 	public EnumSet<Tile> all;
 	public HashMap<String, Integer> chiNum;
 	
 	public Tiles() {
-		tiles = new ArrayList<Tile>();
+		tilePile = new ArrayList<Tile>();
 		all = EnumSet.allOf(Tile.class);
 		for (Tile t : all) {
 			fill(t);
@@ -25,12 +26,12 @@ public class Tiles {
 	}
 	
 	public void shuffle() {
-		Collections.shuffle(tiles);
+		Collections.shuffle(tilePile);
 	}
 	
 	public void fill(Tile tile) {
 		for (int i = 1; i <= 4; i++) {
-			tiles.add(tile);
+			tilePile.add(tile);
 		}
 	}
 }

@@ -1,5 +1,11 @@
+package main;
 import java.util.*;
 import javax.swing.*;
+
+import player.Player;
+import player.PlayerName;
+import tile.Tile;
+import tile.Tiles;
 public class Mahjong {
 	
 	public static Tiles tiles = new Tiles();
@@ -35,18 +41,14 @@ public class Mahjong {
 	public static void play() {
 		tiles.shuffle();
 		for (Player p : player) p.initialize();
-		for (int i = 0; i % 4 < 4; i++) {
-			if (tiles.tiles.size() == 0) {
-				print("No win", "Game over");
-				break;
-			}
-			if (i % 16 == 0 && i != 0) System.out.println();
-			player[i % 4].turn();
-			print("Click \"OK\" to move on to the next player.", null);
-		}
+		turn();
 		int decision = JOptionPane.showConfirmDialog(null, "Would you like to play again?");
 		if (decision == JOptionPane.YES_OPTION) play();
 		else System.exit(0);
+	}
+	
+	public static void turn() {
+	
 	}
 	
 	public static void showDiscard() {
@@ -56,4 +58,9 @@ public class Mahjong {
 	public static void print(String message, String title) {
 		JOptionPane.showOptionDialog(null, message, title, JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
 	}
+	
+	public static int question(String message, String title) {
+		return JOptionPane.showOptionDialog(null, message, title, JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
+	}
+	
 }

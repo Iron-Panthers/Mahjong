@@ -1,3 +1,4 @@
+package tile;
 public enum Tile {
 	一萬,
 	二萬,
