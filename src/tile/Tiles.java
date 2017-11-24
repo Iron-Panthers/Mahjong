@@ -1,28 +1,20 @@
 package tile;
 import java.util.*;
+
 public class Tiles {
 	
 	public ArrayList<Tile> tilePile;
-	public EnumSet<Tile> all;
-	public HashMap<String, Integer> chiNum;
 	
 	public Tiles() {
-		tilePile = new ArrayList<Tile>();
-		all = EnumSet.allOf(Tile.class);
-		for (Tile t : all) {
-			fill(t);
+		Tile[] b = new Tile[9];
+		Tile[] c = new Tile[9];
+		Tile[] d = new Tile[9];
+		for (int i = 0; i < 9; i++) {
+			int rank = i + 1;
+			b[i] = new Tile(rank, "bamboo");
+			c[i] = new Tile(rank, "character");
+			d[i] = new Tile(rank, "dot");
 		}
-		
-		chiNum = new HashMap<String, Integer>();
-		chiNum.put("一", 1);
-		chiNum.put("二", 2);
-		chiNum.put("三", 3);
-		chiNum.put("四", 4);
-		chiNum.put("五", 5);
-		chiNum.put("六", 6);
-		chiNum.put("七", 7);
-		chiNum.put("八", 8);
-		chiNum.put("九", 9);
 	}
 	
 	public void shuffle() {

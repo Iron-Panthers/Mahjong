@@ -1,37 +1,83 @@
 package tile;
-public enum Tile {
-	一萬,
-	二萬,
-	三萬,
-	四萬,
-	五萬,
-	六萬,
-	七萬,
-	八萬,
-	九萬,
-	一索,
-	二索,
-	三索,
-	四索,
-	五索,
-	六索,
-	七索,
-	八索,
-	九索,
-	一筒,
-	二筒,
-	三筒,
-	四筒,
-	五筒,
-	六筒,
-	七筒,
-	八筒,
-	九筒,
-	東,
-	南,
-	西,
-	北,
-	紅中,
-	青發,
-	白板
-} 
+
+public class Tile {
+	
+	public int rank;
+	public String suit;
+	
+	public Tile(int rank, String suit) {
+		this.rank = rank; //0 if tile has no rank, ex: green dragon
+		this.suit = suit;
+	}
+	
+	public String toString() {
+		String tile = new String();
+		switch(rank) {
+		case 1:
+			tile += "一";
+			break;
+		case 2:
+			tile += "二";
+			break;
+		case 3:
+			tile += "三";
+			break;
+		case 4:
+			tile += "四";
+			break;
+		case 5:
+			tile += "五";
+			break;
+		case 6:
+			tile += "六";
+			break;
+		case 7:
+			tile += "七";
+			break;
+		case 8:
+			tile += "八";
+			break;
+		case 9:
+			tile += "九";
+			break;
+		default:
+			break;
+		}
+		switch (suit) {
+		case "bamboo":
+			tile += "素";
+			break;
+		case "dot":
+			tile += "筒";
+			break;
+		case "character":
+			tile += "萬";
+			break;
+		case "green dragon":
+			tile += "青發";
+			break;
+		case "red dragon":
+			tile += "紅中";
+			break;
+		case "white dragon":
+			tile += "白板";
+			break;
+		case "east":
+			tile += "東";
+			break;
+		case "south":
+			tile += "南";
+			break;
+		case "west":
+			tile += "西";
+			break;
+		case "north":
+			tile += "北";
+			break;
+		default:
+			tile = null;
+			break;
+		}
+		return tile;
+	}
+}
