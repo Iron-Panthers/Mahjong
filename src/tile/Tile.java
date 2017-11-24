@@ -48,23 +48,14 @@ public class Tile {
 			break;
 		}
 		switch (suit) {
+		case "character":
+			tile += "萬";
+			break;
 		case "bamboo":
 			tile += "素";
 			break;
 		case "dot":
 			tile += "筒";
-			break;
-		case "character":
-			tile += "萬";
-			break;
-		case "green":
-			tile += "青發";
-			break;
-		case "red":
-			tile += "紅中";
-			break;
-		case "white":
-			tile += "白板";
 			break;
 		case "east":
 			tile += "東";
@@ -77,6 +68,15 @@ public class Tile {
 			break;
 		case "north":
 			tile += "北";
+			break;
+		case "red":
+			tile += "紅中";
+			break;
+		case "green":
+			tile += "青發";
+			break;
+		case "white":
+			tile += "白板";
 			break;
 		default:
 			tile = null;
