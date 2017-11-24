@@ -6,7 +6,11 @@ public class Tile {
 	public String suit;
 	
 	public Tile(int rank, String suit) {
-		this.rank = rank; //0 if tile has no rank, ex: green dragon
+		this.rank = rank; 
+		this.suit = suit;
+	}
+	public Tile(String suit) {
+		this.rank = 0;
 		this.suit = suit;
 	}
 	
@@ -53,13 +57,13 @@ public class Tile {
 		case "character":
 			tile += "萬";
 			break;
-		case "green dragon":
+		case "green":
 			tile += "青發";
 			break;
-		case "red dragon":
+		case "red":
 			tile += "紅中";
 			break;
-		case "white dragon":
+		case "white":
 			tile += "白板";
 			break;
 		case "east":
