@@ -1,7 +1,6 @@
 package player;
 import java.util.*;
-
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 import main.Mahjong;
 import tile.Tile;
@@ -9,18 +8,20 @@ import tile.Tile;
 public class Player {
 	
 	public ArrayList<Tile> hand;
-	public Tile playerTile;
-	public String name;
-	public ArrayList<ArrayList<Tile>> chowOptions;
+	private String name;
 	
 	public Player(String name) {
 		this.name = name;
 		hand = new ArrayList<Tile>();		
 	}
 	
+	public String getName() {
+		return name;
+	}
+	
 	public void initialize() {
 		for (int i = 0; i < 13; i++) {
-			playerTile = Mahjong.tiles.tilePile.get(i);
+			Tile playerTile = Mahjong.tiles.tilePile.get(i);
 			hand.add(playerTile);
 			Mahjong.tiles.tilePile.remove(playerTile);		
 		}
@@ -49,9 +50,7 @@ public class Player {
 	}
 	
 	public void sort() {
-		if (!isSorted()) {
-			quickSort(0, hand.size() - 1);
-		}
+		if (!isSorted()) quickSort(0, hand.size() - 1);
 	}
 	
 	private void quickSort(int low, int high) {
@@ -59,12 +58,8 @@ public class Player {
 		int j = high;
 		int pivot = hand.get(j).value();
 		while (i <= j) {
-			while (hand.get(i).value() < pivot) {
-				i++;
-			}
-			while (hand.get(j).value() > pivot) {
-				j--;
-			}
+			while (hand.get(i).value() < pivot) i++;
+			while (hand.get(j).value() > pivot) j--;
 			if (i <= j) {
 				switchTile(i, j);
 				i++;

@@ -2,16 +2,33 @@ package tile;
 
 public class Tile {
 	
-	public int rank;
-	public String suit;
+	private int rank;
+	private String suit;
 	
 	public Tile(int rank, String suit) {
 		this.rank = rank; 
 		this.suit = suit;
 	}
+	
 	public Tile(String suit) {
-		this.rank = 0;
 		this.suit = suit;
+		//it's actually not the suit, but for simplicity's sake, I'm calling it the suit because I can
+	}
+	
+	public int value() {
+		int value = 0;
+		String[] suits = {"character", "bamboo", "dot", "east", "south", "west", "north", "red", "green", "white"};
+		for (int i = 0; i < suits.length; i++) {
+			if (suit.equals(suits[i])) {
+				if (i < 3) {
+					value = i * 10 + rank;
+					break;
+				}
+				value = 30 + (i - 3);
+				break;
+			}
+		}
+		return value;
 	}
 	
 	public String toString() {
@@ -79,7 +96,6 @@ public class Tile {
 			tile += "白板";
 			break;
 		default:
-			tile = null;
 			break;
 		}
 		return tile;

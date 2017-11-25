@@ -3,16 +3,15 @@ import java.util.*;
 import javax.swing.*;
 
 import player.Player;
-import player.PlayerName;
 import tile.Tile;
 import tile.Tiles;
 public class Mahjong {
 	
 	public static Tiles tiles = new Tiles();
-	public static Player east = new Player(PlayerName.EAST);
-	public static Player south = new Player(PlayerName.SOUTH);
-	public static Player west = new Player(PlayerName.WEST);
-	public static Player north = new Player(PlayerName.NORTH);
+	public static Player east = new Player("East");
+	public static Player south = new Player("South");
+	public static Player west = new Player("West");
+	public static Player north = new Player("North");
 	public static ArrayList<Tile> discard = new ArrayList<Tile>();
 	public static Player[] player = {east, south, west, north};
 	
@@ -33,7 +32,7 @@ public class Mahjong {
 		}
 		String playingOrder = "You'll play in this order:\n";
 		for (int i = 0; i < Mahjong.player.length; i++) {
-			playingOrder += (Mahjong.player[i].name() + ": " + player.get(Mahjong.player[i]) + "\n");
+			playingOrder += (Mahjong.player[i].getName() + ": " + player.get(Mahjong.player[i]) + "\n");
 		}
 		print(playingOrder, "Player Assignment");
 	}
@@ -48,19 +47,35 @@ public class Mahjong {
 	}
 	
 	public static void turn() {
-	
-	}
+		int count = 0;
+		for (int i = 0; (i % 4) < 4; i++) {
+			if (count % 16 == 0 && count != 0) System.out.println();
+			count++;
+			if (tiles.tilePile.size() == 0) {
+		        print("No win", "Game over");
+		        break;
+			}
+			Player p = player[i % 4];
+			p.draw();
+			p.sort();
+			Tile discard = p.discard();
+			while (discard == null) {
+				discard = p.discard();
+			} //end of while
+			Mahjong.discard.add(0, discard);
+			showDiscard();
+		} //end of outer loop
+	} //end of method
 	
 	public static void showDiscard() {
-		if (discard.size() > 0) System.out.print(discard.get(0).name() + "\t");
+		if (discard.size() > 0) System.out.print(discard.get(0).toString() + "\t");
 	}
 	
 	public static void print(String message, String title) {
 		JOptionPane.showOptionDialog(null, message, title, JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
 	}
 	
-	public static int question(String message, String title) {
-		return JOptionPane.showOptionDialog(null, message, title, JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
+	public static int question(String message) {
+		return JOptionPane.showOptionDialog(null, message, message, JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
 	}
-	
 }

@@ -7,9 +7,9 @@ public class Tiles {
 	
 	public Tiles() {
 		tilePile = new ArrayList<Tile>();
-		Tile c[] = new Tile[9];
-		Tile b[] = new Tile[9];
-		Tile d[] = new Tile[9];
+		Tile[] c = new Tile[9];
+		Tile[] b = new Tile[9];
+		Tile[] d = new Tile[9];
 		for (int i = 0; i < 9; i++) {
 			int rank = i + 1;
 			c[i] = new Tile(rank, "character");
