@@ -1,5 +1,8 @@
 package player;
 import java.util.*;
+
+import javax.swing.JOptionPane;
+
 import main.Mahjong;
 import tile.Tile;
 
@@ -7,10 +10,11 @@ public class Player {
 	
 	public ArrayList<Tile> hand;
 	public Tile playerTile;
-	public PlayerName player;
+	public String name;
+	public ArrayList<ArrayList<Tile>> chowOptions;
 	
-	public Player(PlayerName player) {
-		this.player = player;
+	public Player(String name) {
+		this.name = name;
 		hand = new ArrayList<Tile>();		
 	}
 	
@@ -45,7 +49,46 @@ public class Player {
 	}
 	
 	public void sort() {
-		Collections.sort(hand);
+		while (!isSorted()) {
+			quickSort(0, hand.size() - 1);
+		}
+	}
+	
+	private void quickSort(int low, int high) {
+		int i = low;
+		int j = high;
+		int pivot = hand.get(j).value();
+		while (i <= j) {
+			while (hand.get(i).value() < pivot) {
+				i++;
+			}
+			while (hand.get(j).value() > pivot) {
+				j--;
+			}
+			if (i <= j) {
+				switchTile(i, j);
+				i++;
+				j--;
+			}
+		}
+		if (low < j) quickSort(low, j);
+		if (high > i) quickSort(i, high);
+	}
+	
+	private void switchTile(int i, int j) {
+		Tile t = hand.get(i);
+		hand.set(i, hand.get(j));
+		hand.set(j, t);
+	}
+	
+	private boolean isSorted() {
+		int[] value = new int[hand.size()];
+		for (int i = 0; i < value.length; i++) 
+			value[i] = hand.get(i).value();
+		for (int i = 0; i < value.length - 1; i++)
+			if (value[i] > value[i + 1])
+				return false;
+		return true;
 	}
 	
 	public void draw() {
@@ -54,9 +97,16 @@ public class Player {
 		Mahjong.tiles.tilePile.remove(t);
 	}
 	
-	public String name() {
-		String playerName = player.toString();
-		playerName = playerName.substring(0, 1) + playerName.substring(1).toLowerCase();
-		return playerName;
+	public Tile discard() {
+		Tile[] tiles = new Tile[hand.size()];
+		for (int i = 0; i < tiles.length; i++) {
+			tiles[i] = hand.get(i);
+		}
+		Object tile = JOptionPane.showInputDialog(null, "Select a tile to discard.", this.name,
+				JOptionPane.PLAIN_MESSAGE, null, tiles, tiles[0]);
+		Tile discard = (Tile) tile;
+		this.hand.remove(discard);
+		return discard;
 	}
+	
 }
