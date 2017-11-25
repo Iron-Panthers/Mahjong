@@ -49,7 +49,7 @@ public class Player {
 	}
 	
 	public void sort() {
-		while (!isSorted()) {
+		if (!isSorted()) {
 			quickSort(0, hand.size() - 1);
 		}
 	}
