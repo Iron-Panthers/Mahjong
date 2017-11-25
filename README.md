@@ -1,3 +1,3 @@
-The Mahjong Project
+**The Mahjong Project**
 
-Oof. I really regret making this.
+*(Documentation to be written...)*
