@@ -7,6 +7,7 @@
 	<p><i>Under construction...</i></p>
 
 <h2>package tile</h2>
+	<p><i>Under construction...</i></p>
 	<h3>Tile</h3>
 	<table>
 		<tr>
@@ -15,7 +16,7 @@
 		</tr>
 		<tr>
 			<td>Tile(int rank, String suit)</td>
-			<td>Constructs and initializes a tile a ranked tile</td>
+			<td>Constructs and initializes a ranked tile</td>
 		</tr>
 		<tr>
 			<td>Tile(String suit)</td>
