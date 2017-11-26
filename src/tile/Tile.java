@@ -4,20 +4,36 @@ public class Tile {
 	
 	private int rank;
 	private String suit;
+	private String[] suits = {"character", "bamboo", "dot", "east", "south", "west", "north", "red", "green", "white"};
 	
 	public Tile(int rank, String suit) {
-		this.rank = rank; 
-		this.suit = suit;
+		if (rank >= 1 && rank <= 9) this.rank = rank; 
+		else throw new IllegalArgumentException("Invalid rank value");
+		boolean isValid = false;
+		for (int i = 0; i < 3; i++) { // Runs the loop for the ranked suits
+			if (suits[i].equals(suit)) {
+				isValid = true;
+				break;
+			}
+		}
+		if (isValid) this.suit = suit;
+		else throw new IllegalArgumentException("Invalid suit");
 	}
 	
-	public Tile(String suit) {
-		this.suit = suit;
-		//it's actually not the suit, but for simplicity's sake, I'm calling it the suit because I can
+	public Tile(String tile) {
+		boolean isValid = false;
+		for (int i = 3; i < suits.length; i++) { // Runs the loop for the nonranked suits
+			if (suits[i].equals(tile)) {
+				isValid = true;
+				break;
+			}
+		}
+		if (isValid) this.suit = tile; // It's actually not the suit, but for simplicity's sake, I'm calling it the suit because I can
+		else throw new IllegalArgumentException("Invalid tile");
 	}
 	
 	public int value() {
 		int value = 0;
-		String[] suits = {"character", "bamboo", "dot", "east", "south", "west", "north", "red", "green", "white"};
 		for (int i = 0; i < suits.length; i++) {
 			if (suit.equals(suits[i])) {
 				if (i < 3) {
