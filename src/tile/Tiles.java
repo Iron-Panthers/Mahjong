@@ -12,16 +12,16 @@ public class Tiles {
 		Tile[] d = new Tile[9];
 		for (int i = 0; i < 9; i++) {
 			int rank = i + 1;
-			c[i] = new Tile(rank, "character");
-			b[i] = new Tile(rank, "bamboo");
-			d[i] = new Tile(rank, "dot");
+			c[i] = new Tile(rank, Suit.CHARACTER);
+			b[i] = new Tile(rank, Suit.BAMBOO);
+			d[i] = new Tile(rank, Suit.DOT);
 		}
 		fill(c);
 		fill(b);
 		fill(d);
-		Tile east = new Tile("east"), south = new Tile("south"), west = new Tile("west"), north = new Tile("north");
+		Tile east = new Tile(Suit.EAST), south = new Tile(Suit.EAST), west = new Tile(Suit.WEST), north = new Tile(Suit.NORTH);
 		fill(east, south, west, north);
-		Tile red = new Tile("red"), green = new Tile("green"), white = new Tile("white");
+		Tile red = new Tile(Suit.RED_DRAGON), green = new Tile(Suit.GREEN_DRAGON), white = new Tile(Suit.WHITE_DRAGON);
 		fill(red, green, white);
 	}
 	
