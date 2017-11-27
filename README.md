@@ -15,11 +15,21 @@
 			<th>Description</th>
 		</tr>
 		<tr>
-			<td>Tile(int rank, String suit)</td>
-			<td>Constructs and initializes a ranked tile</td>
+			<td>Tile(int rank, Suit suit)</td>
+			<td>
+				<p>Constructs and initializes a ranked tile</p>
+				<p>
+					Throws illegal argument exception<br>
+					if rank is outside the range 1 to 9<br>
+					or if suit is nonranked
+				</p>
+			</td>
 		</tr>
 		<tr>
-			<td>Tile(String suit)</td>
-			<td>Constructs and initializes a nonranked tile</td>
+			<td>Tile(Suit suit)</td>
+			<td>
+				<p>Constructs and initializes a nonranked tile</p>
+				<p>Throws illegal argument exception<br>if suit is ranked</p>
+			</td>
 		</tr>
 	</table>
