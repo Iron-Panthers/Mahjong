@@ -1,9 +1,12 @@
 package tile;
 
 public enum Suit {
+	// Ranked suits
 	CHARACTER,
 	BAMBOO,
 	DOT,
+	
+	// Nonranked suits
 	EAST,
 	SOUTH,
 	WEST,
