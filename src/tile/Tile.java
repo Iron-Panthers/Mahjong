@@ -3,10 +3,12 @@ package tile;
 public class Tile {
 	
 	private int rank;
-	private String suit;
-	private String[] suits = {"character", "bamboo", "dot", "east", "south", "west", "north", "red", "green", "white"};
+	private Suit suit;
+	private Suit[] suits = {Suit.CHARACTER, Suit.BAMBOO, Suit.DOT,
+			Suit.EAST, Suit.SOUTH, Suit.WEST, Suit.NORTH,
+			Suit.RED_DRAGON, Suit.GREEN_DRAGON, Suit.WHITE_DRAGON};
 	
-	public Tile(int rank, String suit) {
+	public Tile(int rank, Suit suit) {
 		if (rank >= 1 && rank <= 9) this.rank = rank; 
 		else throw new IllegalArgumentException("Invalid rank value");
 		boolean isValid = false;
@@ -20,7 +22,7 @@ public class Tile {
 		else throw new IllegalArgumentException("Invalid suit");
 	}
 	
-	public Tile(String tile) {
+	public Tile(Suit tile) {
 		boolean isValid = false;
 		for (int i = 3; i < suits.length; i++) { // Runs the loop for the nonranked suits
 			if (suits[i].equals(tile)) {
@@ -81,34 +83,34 @@ public class Tile {
 			break;
 		}
 		switch (suit) {
-		case "character":
+		case CHARACTER:
 			tile += "萬";
 			break;
-		case "bamboo":
+		case BAMBOO:
 			tile += "素";
 			break;
-		case "dot":
+		case DOT:
 			tile += "筒";
 			break;
-		case "east":
+		case EAST:
 			tile += "東";
 			break;
-		case "south":
+		case SOUTH:
 			tile += "南";
 			break;
-		case "west":
+		case WEST:
 			tile += "西";
 			break;
-		case "north":
+		case NORTH:
 			tile += "北";
 			break;
-		case "red":
+		case RED_DRAGON:
 			tile += "紅中";
 			break;
-		case "green":
+		case GREEN_DRAGON:
 			tile += "青發";
 			break;
-		case "white":
+		case WHITE_DRAGON:
 			tile += "白板";
 			break;
 		default:
