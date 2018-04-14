@@ -7,13 +7,13 @@ import tile.Tile;
 import tile.Tiles;
 public class Mahjong {
 	
-	public static Tiles tiles = new Tiles();
-	public static Player east = new Player("East");
-	public static Player south = new Player("South");
-	public static Player west = new Player("West");
-	public static Player north = new Player("North");
-	public static ArrayList<Tile> discard = new ArrayList<Tile>();
-	public static Player[] player = {east, south, west, north};
+	private static Tiles tiles = new Tiles();
+	private static Player east = new Player("East");
+	private static Player south = new Player("South");
+	private static Player west = new Player("West");
+	private static Player north = new Player("North");
+	private static ArrayList<Tile> discard = new ArrayList<Tile>();
+	private static Player[] player = {east, south, west, north};
 	
 	public static void run() {
 		assign();
@@ -39,33 +39,11 @@ public class Mahjong {
 
 	public static void play() {
 		tiles.shuffle();
-		for (Player p : player) p.initialize();
-		turn();
 		int decision = JOptionPane.showConfirmDialog(null, "Would you like to play again?");
 		if (decision == JOptionPane.YES_OPTION) play();
 		else System.exit(0);
 	}
 	
-	public static void turn() {
-		int count = 0;
-		for (int i = 0; (i % 4) < 4; i++) {
-			if (count % 16 == 0 && count != 0) System.out.println();
-			count++;
-			if (tiles.tilePile.size() == 0) {
-		        print("No win", "Game over");
-		        break;
-			}
-			Player p = player[i % 4];
-			p.draw();
-			p.sort();
-			Tile discard = p.discard();
-			while (discard == null) {
-				discard = p.discard();
-			} //end of while
-			Mahjong.discard.add(0, discard);
-			showDiscard();
-		} //end of outer loop
-	} //end of method
 	
 	public static void showDiscard() {
 		if (discard.size() > 0) System.out.print(discard.get(0).toString() + "\t");
