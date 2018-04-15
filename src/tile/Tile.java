@@ -2,8 +2,11 @@ package tile;
 
 public class Tile implements Comparable<Tile> {
 	
+	/** Rank of the tile */
 	private int rank;
+	/** Suit of the tile */
 	private Suit suit;
+	/** All possible suits in order */
 	private Suit[] suits = {Suit.CHARACTER, Suit.BAMBOO, Suit.DOT,
 			Suit.EAST, Suit.SOUTH, Suit.WEST, Suit.NORTH,
 			Suit.RED_DRAGON, Suit.GREEN_DRAGON, Suit.WHITE_DRAGON}; // First three are ranked suits
@@ -18,12 +21,7 @@ public class Tile implements Comparable<Tile> {
 		if (rank >= 1 && rank <= 9) this.rank = rank; 
 		else throw new IllegalArgumentException("Invalid rank value");
 		boolean isValid = false;
-		for (int i = 0; i < 3; i++) { // Runs the loop for the ranked suits
-			if (suits[i].equals(suit)) {
-				isValid = true;
-				break;
-			}
-		}
+		for (int i = 0; i < 3 && !isValid; i++) if (suits[i].equals(suit)) isValid = true; // Runs loop for ranked suits
 		if (isValid) this.suit = suit;
 		else throw new IllegalArgumentException("Invalid suit");
 	}
@@ -35,12 +33,7 @@ public class Tile implements Comparable<Tile> {
 	 */
 	public Tile(Suit suit) {
 		boolean isValid = false;
-		for (int i = 3; i < suits.length; i++) { // Runs the loop for the nonranked suits
-			if (suits[i].equals(suit)) {
-				isValid = true;
-				break;
-			}
-		}
+		for (int i = 3; i < suits.length && !isValid; i++) if (suits[i].equals(suit)) isValid = true; // Runs the loop for the nonranked suits
 		if (isValid) {
 			this.suit = suit;
 			this.rank = 0;
@@ -131,8 +124,7 @@ public class Tile implements Comparable<Tile> {
 	 * @return index of a suit in {@link Tile#suits}
 	 */
 	private int getIndexOf(Suit suit) {
-		for (int i = 1; i < suits.length; ++i) 
-			if (suit == suits[i]) return i;
+		for (int i = 1; i < suits.length; ++i) if (suit == suits[i]) return i;
 		return -1;
 	}
 	
@@ -145,8 +137,7 @@ public class Tile implements Comparable<Tile> {
 	 * positive if this rank comes after the tile's suit
 	 */
 	private int compareSuit(Tile tile) {
-		return getIndexOf(this.suit) - getIndexOf(tile.suit);
-		
+		return getIndexOf(this.getSuit()) - getIndexOf(tile.getSuit());
 	}
 	
 	/**
@@ -159,7 +150,7 @@ public class Tile implements Comparable<Tile> {
 	 * positive if this rank comes after the tile's rank
 	 */
 	private int compareRank(Tile tile) {
-		return this.rank - tile.rank;
+		return this.getRank() - tile.getRank();
 	}
 	
 	/**
@@ -172,5 +163,36 @@ public class Tile implements Comparable<Tile> {
 	 */
 	public int compareTo(Tile tile) {
 		return compareSuit(tile) == 0 ? compareRank(tile) : compareSuit(tile);
+	}
+	
+	public boolean equals(Tile tile) {
+		return compareTo(tile) == 0;
+	}
+	
+	/**
+	 * Returns whether or not the tile has rank
+	 * 
+	 * @return true if rank is nonzero, false if it is 0
+	 */
+	public boolean isRanked() {
+		return getRank() != 0;
+	}
+	
+	/**
+	 * Returns the rank of the tile
+	 * 
+	 * @return {@link Tile#rank}
+	 */
+	public int getRank() {
+		return rank;
+	}
+	
+	/**
+	 * Returns the suit of the tile
+	 * 
+	 * @return {@link Tile#suit}
+	 */
+	public Suit getSuit() {
+		return suit;
 	}
 }
