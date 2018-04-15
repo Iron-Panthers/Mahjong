@@ -3,12 +3,24 @@ import java.util.*;
 import javax.swing.JOptionPane;
 import tile.*;
 
+/**
+ * A class for a mahjong player.
+ * A mahjong player can insert and discard tiles into or from their hand.
+ * Their hand can be sorted.
+ * They can play the following melds: kong, pong, chow.
+ * TODO: check win
+ * 
+ * @author Shiloh
+ *
+ */
 public class Player {
 	
 	/** The player's hand as an ArrayList of tiles */
 	private ArrayList<Tile> hand;
 	/** The player's role: East, South, West, or North */
 	private Role role;
+	/** Is the player is allowed to insert a new tile */
+	private boolean canInsert;
 	
 	/**
 	 * Makes a player with a certain role.
@@ -17,7 +29,8 @@ public class Player {
 	 */
 	public Player(Role role) {
 		this.role = role;
-		hand = new ArrayList<Tile>();		
+		hand = new ArrayList<Tile>();
+		canInsert = true;
 	}
 	
 	/**
@@ -38,11 +51,16 @@ public class Player {
 	
 	/**
 	 * Pre-condition: hand is sorted.
-	 * Inserts a tile into the hand.
+	 * Inserts a tile into the hand if the player can insert 
+	 * (player has not received a tile from a meld). 
 	 * 
 	 * @param tile
 	 */
 	public void insert(Tile tile) {
+		if (!canInsert) {
+			canInsert = true;
+			return;
+		}
 		int i = 0;
 		for (i = 0; i < hand.size() && tile.compareTo(hand.get(i)) >= 0; ++i);
 		hand.add(i, tile);
@@ -90,12 +108,12 @@ public class Player {
 	}
 	
 	/**
-	 * Sees if player can pung.
+	 * Sees if player can pong.
 	 * 
 	 * @param tile
-	 * @return true if player can pung, false if not
+	 * @return true if player can pong, false if not
 	 */
-	private boolean canPung(Tile tile) {
+	private boolean canPong(Tile tile) {
 		return count(tile) >= 2;
 	}
 	
@@ -156,30 +174,23 @@ public class Player {
 	}
 	
 	/**
-	 * Checks if player can kong, pung, or chow the tile.
-	 * 
-	 * @param tile
-	 * @return true if player can kong, pung, or chow the tile
-	 */
-	private boolean canKongPungChow(Tile tile) {
-		return canKong(tile) || canPung(tile) || canChow(tile);
-	}
-	
-	/**
-	 * Pre-condition: Player can kong, pung, or chow the tile.
-	 * Player can choose to kong, pung, chow, or pass
+	 * Pre-condition: Player can kong, pong, or chow the tile.
+	 * Player can choose to kong, pong, chow, or pass
 	 * 
 	 * @param tile
 	 * @return the option the player chooses
 	 */
-	private Object chooseKongPungChow(Tile tile) {
+	private Object chooseKongPongChow(Tile tile) {
 		ArrayList<Object> temp = new ArrayList<Object>();
+		// Adds the allowable melds to the temp arraylist
 		if (canKong(tile)) temp.add("Kong");
-		if (canPung(tile)) temp.add("Pung");
+		if (canPong(tile)) temp.add("Pong");
 		if (canChow(tile)) temp.add("Chow");
-		temp.add("Pass");
-		Object options[] = temp.toArray();
-		return options[JOptionPane.showOptionDialog(null, "Select an option.", null, 
+		temp.add("Pass"); // Gives the player the option to pass
+		Object options[] = temp.toArray(); // Converts arraylist to an array for JOptionPane purposes
+		// Asks the user to make a meld or to pass
+		// Selects meld or pass based on user input
+		return options[JOptionPane.showOptionDialog(null, "Select an option.", toString(), 
 				JOptionPane.CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0])];
 	}
 	
@@ -207,11 +218,11 @@ public class Player {
 	}
 	
 	/**
-	 * Removes two instances of the tile to be punged
+	 * Removes two instances of the tile to be ponged
 	 * 
 	 * @param tile
 	 */
-	private void pung(Tile tile) {
+	private void pong(Tile tile) {
 		for (int i = 0; i < 2; ++i) remove(tile);
 	}
 	
@@ -219,10 +230,10 @@ public class Player {
 	 * Converts a Tile arr to an object
 	 * 
 	 * @param arr
-	 * @return
+	 * @return arr as a string object
 	 */
 	private Object arrToObj(Tile[] arr) {
-		Object output = new Object();
+		Object output = new String();
 		for (int i = 0; i < arr.length; ++i) {
 			output += arr[i].toString() + "\t";
 		}
@@ -230,6 +241,7 @@ public class Player {
 	}
 	
 	/**
+	 * Pre-condition: Player can and chose to chow. 
 	 * Selects the desired chow from the player.
 	 * If there is only one possible chow, the user does not get to choose, 
 	 * and that chow combination will be returned instead.
@@ -239,13 +251,13 @@ public class Player {
 	 */
 	private Object chowSelector(Tile tile) {
 		List<Tile[]> temp = new ArrayList<Tile[]>();
-		if (hasTwoBefore(tile)) temp.add(new Tile[] {tile(tile, -2), tile(tile, -1), tile});
-		if (isInBetweenTwo(tile)) temp.add(new Tile[] {tile(tile, -1), tile, tile(tile, 1)});
-		if (hasTwoAfter(tile)) temp.add(new Tile[] {tile, tile(tile, 1), tile(tile, 2)});
-		Object[] options = new Object[temp.size()];
-		for (int i = 0; i < options.length; ++i) options[i] = arrToObj(temp.get(i));
-		if (options.length == 0) return options[0];
-		return options[JOptionPane.showOptionDialog(null, "Select an option.", null, 
+		if (hasTwoBefore(tile)) temp.add(new Tile[] {tile(tile, -2), tile(tile, -1), tile}); // Makes the option of having this tile and the two before
+		if (isInBetweenTwo(tile)) temp.add(new Tile[] {tile(tile, -1), tile, tile(tile, 1)}); // Makes the option having this tile and the ones before and after it
+		if (hasTwoAfter(tile)) temp.add(new Tile[] {tile, tile(tile, 1), tile(tile, 2)}); // Makes the option of having this tile and the two after
+		Object[] options = new Object[temp.size()]; // Makes an option array
+		for (int i = 0; i < options.length; ++i) options[i] = arrToObj(temp.get(i)); // Converts the arrays in temp to objects that can be read as strings
+		if (options.length == 1) return options[0]; // If there is only one option, it returns that option.
+		return options[JOptionPane.showOptionDialog(null, "Select an option.", toString(), 
 				JOptionPane.CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0])];
 	}
 	
@@ -257,15 +269,17 @@ public class Player {
 	 */
 	private void chow(Tile tile) {
 		Object selection = chowSelector(tile);
-		System.out.println(selection.toString());
+		// Remove the the two tiles before it
 		if (selection.equals(arrToObj(new Tile[] {tile(tile, -2), tile(tile, -1), tile}))) {
 			remove(tile(tile, -2));
 			remove(tile(tile, -1));
 		}
+		// Removes the two tiles it is in between
 		else if (selection.equals(arrToObj(new Tile[] {tile(tile, -1), tile, tile(tile, 1)}))) {
 			remove(tile(tile, -1));
 			remove(tile(tile, 1));
 		}
+		// Removes the two tiles after it
 		else {
 			remove(tile(tile, 1));
 			remove(tile(tile, 21));
@@ -273,18 +287,19 @@ public class Player {
 	}
 	
 	/**
-	 * Kong, pung, chow, or pass based on selection from the player.
+	 * Kong, pong, chow, or pass based on selection from the player.
 	 * 
 	 * @param tile
-	 * @return true if player konged, punged, or chowed; false if player passed
+	 * @return true if player konged, ponged, or chowed; false if player passed
 	 */
-	public boolean kongPungChow(Tile tile) {
-		if (!canKongPungChow(tile)) return false;
-		Object selection = chooseKongPungChow(tile);
+	public boolean kongPongChow(Tile tile) {
+		if (!(canKong(tile) || canPong(tile) || canChow(tile))) return false;
+		Object selection = chooseKongPongChow(tile);
 		if (selection.equals("Kong")) kong(tile);
-		else if (selection.equals("Pung")) pung(tile);
+		else if (selection.equals("Pong")) pong(tile);
 		else if (selection.equals("Chow")) chow(tile);
 		else return false;
+		canInsert = false;
 		return true;
 	}
 	

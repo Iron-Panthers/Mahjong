@@ -1,5 +1,11 @@
 package tile;
 
+/**
+ * A class for the tiles in a game of mahjong.
+ * 
+ * @author Shiloh
+ *
+ */
 public class Tile implements Comparable<Tile> {
 	
 	/** Rank of the tile */
@@ -12,7 +18,7 @@ public class Tile implements Comparable<Tile> {
 			Suit.RED_DRAGON, Suit.GREEN_DRAGON, Suit.WHITE_DRAGON}; // First three are ranked suits
 	
 	/**
-	 * Construct a tile that has a rank
+	 * Construct a tile that has a rank.
 	 * 
 	 * @param rank 1 to 9
 	 * @param suit CHARACTER, BAMBOO, or DOT
@@ -27,7 +33,7 @@ public class Tile implements Comparable<Tile> {
 	}
 	
 	/**
-	 * Constructs a nonranked title
+	 * Constructs a nonranked tile.
 	 * 
 	 * @param suit EAST, SOUTH, WEST, NORTH, RED_DRAGON, GREEN_DRAGON, WHITE_DRAGON
 	 */
@@ -43,7 +49,7 @@ public class Tile implements Comparable<Tile> {
 	
 	
 	/**
-	 * Returns the tile as a String in Chinese
+	 * Returns the tile as a String in Chinese.
 	 * 
 	 * @return tile as a String
 	 */
@@ -118,7 +124,7 @@ public class Tile implements Comparable<Tile> {
 	}
 
 	/**
-	 * Finds the index of a suit in the suits array
+	 * Finds the index of a suit in the suits array.
 	 * 
 	 * @param suit
 	 * @return index of a suit in {@link Tile#suits}
@@ -129,7 +135,7 @@ public class Tile implements Comparable<Tile> {
 	}
 	
 	/**
-	 * Compares the suit of two tiles
+	 * Compares the suit of two tiles.
 	 * 
 	 * @param tile
 	 * @return negative if this suit comes before tile's suit, 
@@ -141,8 +147,8 @@ public class Tile implements Comparable<Tile> {
 	}
 	
 	/**
-	 * Pre-condition: Tiles share the same suit
-	 * Compares the rank of two tiles
+	 * Pre-condition: Tiles share the same suit.
+	 * Compares the rank of two tiles.
 	 * 
 	 * @param tile
 	 * @return negative if this rank comes before tile's rank, 
@@ -154,7 +160,7 @@ public class Tile implements Comparable<Tile> {
 	}
 	
 	/**
-	 * Compares two tiles
+	 * Compares two tiles.
 	 * 
 	 * @param tile
 	 * @return negative if this tile comes before the other tile, 
@@ -165,12 +171,18 @@ public class Tile implements Comparable<Tile> {
 		return compareSuit(tile) == 0 ? compareRank(tile) : compareSuit(tile);
 	}
 	
+	/**
+	 * Checks if two tiles are equal.
+	 * 
+	 * @param tile
+	 * @return true if their suit and rank hole the same value, false if otherwise
+	 */
 	public boolean equals(Tile tile) {
 		return compareTo(tile) == 0;
 	}
 	
 	/**
-	 * Returns whether or not the tile has rank
+	 * Returns whether or not the tile has a rank.
 	 * 
 	 * @return true if rank is nonzero, false if it is 0
 	 */
@@ -179,7 +191,7 @@ public class Tile implements Comparable<Tile> {
 	}
 	
 	/**
-	 * Returns the rank of the tile
+	 * Returns the rank of the tile.
 	 * 
 	 * @return {@link Tile#rank}
 	 */
@@ -188,7 +200,7 @@ public class Tile implements Comparable<Tile> {
 	}
 	
 	/**
-	 * Returns the suit of the tile
+	 * Returns the suit of the tile.
 	 * 
 	 * @return {@link Tile#suit}
 	 */

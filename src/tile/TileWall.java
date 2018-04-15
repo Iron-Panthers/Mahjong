@@ -1,37 +1,47 @@
 package tile;
 import java.util.*;
 
+/**
+ * The tile wall for a game of mahjong.
+ * 
+ * @author Shiloh
+ *
+ */
 public class TileWall {
 	
 	private ArrayList<Tile> wall;
 	
 	/**
-	 * Constructs the wall
-	 * The wall is filled with each type of tile
-	 * There are 4 of each tile in the wall
+	 * Constructs the wall.
+	 * The wall is filled with each type of tile.
+	 * There are 4 of each tile in the wall.
 	 */
 	public TileWall() {
 		wall = new ArrayList<Tile>();
 		Tile[] c = new Tile[9];
 		Tile[] b = new Tile[9];
 		Tile[] d = new Tile[9];
+		// Constructs all the ranked tiles
 		for (int i = 1; i <= 9; ++i) {
-			c[i - 1] = new Tile(i, Suit.CHARACTER);
+			c[i - 1] = new Tile(i, Suit.CHARACTER); 
 			b[i - 1] = new Tile(i, Suit.BAMBOO);
 			d[i - 1] = new Tile(i, Suit.DOT);
 		}
+		// Fills wall with all the ranked tiles, 4 of each tile.
 		fill(c);
 		fill(b);
 		fill(d);
+		// Construct the winds and fills wall with 4 of each tile
 		Tile east = new Tile(Suit.EAST), south = new Tile(Suit.EAST), west = new Tile(Suit.WEST), north = new Tile(Suit.NORTH);
 		fill(east, south, west, north);
+		// Construct the dragons and fills wall with 4 of each tile
 		Tile red = new Tile(Suit.RED_DRAGON), green = new Tile(Suit.GREEN_DRAGON), white = new Tile(Suit.WHITE_DRAGON);
 		fill(red, green, white);
 	}
 	
 	/**
-	 * Fills the wall with tiles
-	 * Adds 4 of each tile to the wall
+	 * Fills the wall with tiles.
+	 * Adds 4 of each tile to the wall.
 	 * 
 	 * @param tiles
 	 */
@@ -42,14 +52,14 @@ public class TileWall {
 	}
 	
 	/**
-	 * Shuffles the wall
+	 * Shuffles the wall.
 	 */
 	public void shuffle() {
 		Collections.shuffle(wall);
 	}
 	
 	/**
-	 * Draws the first tile and removes it from the wall
+	 * Draws the first tile and removes it from the wall.
 	 * 
 	 * @return the first tile in {@link TileWall#wall}
 	 */
@@ -60,7 +70,7 @@ public class TileWall {
 	}
 	
 	/**
-	 * Returns whether the wall is empty or not
+	 * Returns whether the wall is empty or not.
 	 * 
 	 * @return true if the wall is empty, false if it contains tiles
 	 */
