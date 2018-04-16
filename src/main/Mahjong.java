@@ -114,7 +114,7 @@ public class Mahjong {
 	 * @return the player who plays next
 	 */
 	private static int setNextPlayer(int currentPlayer, Tile tile) {
-		for (int i = currentPlayer + 1; i != currentPlayer; i = getNextPlayer(i)) {
+		for (int i = getNextPlayer(currentPlayer); i != currentPlayer; i = getNextPlayer(i)) {
 			if (players[i].kongPongChow(tile)) {
 				hasDiscarded = false;
 				return i;
